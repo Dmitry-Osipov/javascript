@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON API Example</title>
+    <style>
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .post img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="posts-container"></div>
+
+<script src="data.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const postsContainer = document.getElementById('posts-container');
+
+        const data = await fetchData();
+
+        data.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.classList.add('post');
+
+            const titleElement = document.createElement('h2');
+            titleElement.textContent = post.title;
+
+            const bodyElement = document.createElement('p');
+            bodyElement.textContent = post.body;
+
+            postElement.appendChild(titleElement);
+            postElement.appendChild(bodyElement);
+            postsContainer.appendChild(postElement);
+        });
+    });
+</script>
+</body>
+</html>
