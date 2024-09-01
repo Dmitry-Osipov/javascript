@@ -1,0 +1,25 @@
+{
+  "featuredItems": [
+    {
+      "id": 1,
+      "name": "SEO and Digital Marketing",
+      "price": "$59.99",
+      "image": "img/product1.png",
+      "description": "A comprehensive guide to mastering SEO and digital marketing."
+    },
+    {
+      "id": 2,
+      "name": "Content Strategy",
+      "price": "$49.99",
+      "image": "img/product2.png",
+      "description": "Learn how to create and manage content that drives traffic."
+    },
+    {
+      "id": 3,
+      "name": "Social Media Mastery",
+      "price": "$39.99",
+      "image": "img/product3.png",
+      "description": "Become a social media expert with our in-depth course."
+    }
+  ]
+}

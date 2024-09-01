@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Items</title>
+    <style>
+        .featured-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+        .featured-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .featured-item h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .featured-item p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .featured-item .price {
+            color: #27ae60;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div id="featured-items-container"></div>
+
+<script>
+    "use strict";
+
+    // Загружаем JSON-данные и формируем блок "Featured Items"
+    async function loadFeaturedItems() {
+        try {
+            const response = await fetch('products.json');
+            const data = await response.json();
+            const container = document.getElementById('featured-items-container');
+
+            data.featuredItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('featured-item');
+
+                const itemImage = document.createElement('img');
+                itemImage.src = item.image;
+                itemImage.alt = item.name;
+
+                const itemName = document.createElement('h3');
+                itemName.textContent = item.name;
+
+                const itemDescription = document.createElement('p');
+                itemDescription.textContent = item.description;
+
+                const itemPrice = document.createElement('p');
+                itemPrice.classList.add('price');
+                itemPrice.textContent = item.price;
+
+                itemElement.appendChild(itemImage);
+                itemElement.appendChild(itemName);
+                itemElement.appendChild(itemDescription);
+                itemElement.appendChild(itemPrice);
+                container.appendChild(itemElement);
+            });
+        } catch (error) {
+            console.error('Error loading featured items:', error);
+        }
+    }
+
+    // Загружаем товары при загрузке страницы
+    document.addEventListener('DOMContentLoaded', loadFeaturedItems);
+</script>
+</body>
+</html>
