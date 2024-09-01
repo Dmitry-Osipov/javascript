@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Items with Cart</title>
+    <style>
+        .featured-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+        .featured-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .featured-item h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .featured-item p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .featured-item .price {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .cart-items {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+        .cart-item .remove {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="featured-items-container"></div>
+
+<div id="cart-items-container" style="display: none;">
+    <h3>Cart Items</h3>
+    <div id="cart-items"></div>
+</div>
+
+<script>
+    "use strict";
+
+    const products = [
+        {
+            id: 1,
+            name: "SEO and Digital Marketing",
+            price: "$59.99",
+            image: "img/product1.png",
+            description: "A comprehensive guide to mastering SEO and digital marketing."
+        },
+        {
+            id: 2,
+            name: "Content Strategy",
+            price: "$49.99",
+            image: "img/product2.png",
+            description: "Learn how to create and manage content that drives traffic."
+        },
+        {
+            id: 3,
+            name: "Social Media Mastery",
+            price: "$39.99",
+            image: "img/product3.png",
+            description: "Become a social media expert with our in-depth course."
+        }
+    ];
+
+    function loadFeaturedItems() {
+        const container = document.getElementById('featured-items-container');
+
+        products.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('featured-item');
+
+            const itemImage = document.createElement('img');
+            itemImage.src = item.image;
+            itemImage.alt = item.name;
+
+            const itemName = document.createElement('h3');
+            itemName.textContent = item.name;
+
+            const itemDescription = document.createElement('p');
+            itemDescription.textContent = item.description;
+
+            const itemPrice = document.createElement('p');
+            itemPrice.classList.add('price');
+            itemPrice.textContent = item.price;
+
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = "Add to Cart";
+            addToCartButton.onclick = () => addToCart(item);
+
+            itemElement.appendChild(itemImage);
+            itemElement.appendChild(itemName);
+            itemElement.appendChild(itemDescription);
+            itemElement.appendChild(itemPrice);
+            itemElement.appendChild(addToCartButton);
+            container.appendChild(itemElement);
+        });
+    }
+
+    function addToCart(item) {
+        const cartContainer = document.getElementById('cart-items-container');
+        const cartItems = document.getElementById('cart-items');
+
+        cartContainer.style.display = 'block';
+
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.dataset.id = item.id;
+
+        const itemName = document.createElement('h4');
+        itemName.textContent = item.name;
+
+        const removeButton = document.createElement('span');
+        removeButton.classList.add('remove');
+        removeButton.textContent = "×";
+        removeButton.onclick = () => removeFromCart(cartItem);
+
+        cartItem.appendChild(itemName);
+        cartItem.appendChild(removeButton);
+        cartItems.appendChild(cartItem);
+    }
+
+    function removeFromCart(cartItem) {
+        const cartItems = document.getElementById('cart-items');
+        cartItem.remove();
+
+        if (cartItems.children.length === 0) {
+            document.getElementById('cart-items-container').style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadFeaturedItems);
+</script>
+</body>
+</html>
